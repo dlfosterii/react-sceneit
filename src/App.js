@@ -1,24 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import MovieList from './components/MovieList';
+import Search from './components/Search';
 import './App.css';
+import { Container, Row, Col } from 'react-bootstrap';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1 >Scene It</h1>
-        <div className="head-subtitle">
-          Your tool to find great movies!
-        </div>
-      </header>
-      <form className="form">
-        {/* <label htmlFor="search">Search</label> */}
-        <input type="text" id="search" name="search" placeholder="Search for a movie..."></input>
-        <button type="submit">Search</button>
-      </form>
+class App extends React.Component {
+  state = {
+    movies: [],
+  }
 
-    </div>
-  );
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    let urlEncodedSearchString = encodeURIComponent(this.state.inputValue);
+
+    fetch(`http://www.omdbapi.com/?apikey=ae5e0f83&s=${urlEncodedSearchString}`)
+      .then(res => res.json())
+      .then(data => this.setState({
+        movies: data ? data.Search : []
+      }))
+
+  }
+
+
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1 >Scene It</h1>
+          <div className="head-subtitle">
+            Your tool to find great movies!
+          </div>
+        </header>
+        <Search handleFormSubmit={this.handleFormSubmit} />
+        <Container>
+          <Row md={4}> 
+            <MovieList movies={this.state.movies} />
+
+          </Row>
+
+        </Container>
+      </div>
+    );
+  }
 }
 
 export default App;
