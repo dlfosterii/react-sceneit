@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MovieCard from './MovieCard';
-import Col from 'react-bootstrap/Col'
 import './MovieList.css'
 
 

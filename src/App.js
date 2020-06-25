@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Route, Switch, Link} from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import MovieList from './components/MovieList';
 import WatchList from './components/WatchList';
 import Search from './components/Search';
@@ -13,12 +13,12 @@ class App extends React.Component {
     inputValue: '',
   }
 
-addToWatchList = (movie) => {
-  this.setState({
-    watchList: [...this.state.watchList, movie]
-  })
+  addToWatchList = (movie) => {
+    this.setState({
+      watchList: [...this.state.watchList, movie]
+    })
 
-}
+  }
 
 
   handleFormSubmit = (e) => {
@@ -35,39 +35,41 @@ addToWatchList = (movie) => {
 
   handleChange = (e) => {
     this.setState({
-        inputValue: e.target.value
-    }) 
-}
+      inputValue: e.target.value
+    })
+  }
 
 
 
   render() {
     return (
       <BrowserRouter>
-      <div className="App">
-        <header className="App-header">
-          <h1 >Scene It</h1>
-          <div className="head-subtitle">
-            Your tool to find great movies!
+        <div className="App">
+          <header className="App-header">
+            <h1 >Scene It</h1>
+            <div className="head-subtitle">
+              Your tool to find great movies!
           </div>
-        </header>
-        <Search handleFormSubmit={this.handleFormSubmit} handleChange={this.handleChange} />
-        <Link to="/watchlist">Go to Watch List</Link>
-        <Switch>
-          <Route exact path='/' >
-            <MovieList movies={this.state.movies} addToWatchList={this.addToWatchList}/>
+          </header>
+          <Switch>
+            <Route exact path='/' >
+              <Link to="/watchlist">Go to Watch List</Link>
+              <Search handleFormSubmit={this.handleFormSubmit} handleChange={this.handleChange} />
+              <MovieList movies={this.state.movies} addToWatchList={this.addToWatchList} />
 
-          </Route>
-          <Route path='/watchlist' >
-          <WatchList movies={this.state.watchList} addToWatchList={this.addToWatchList}/>
-          </Route>
-          <Route>
-            <h1>Error! 404 - Not Found</h1>
-          </Route>
-        </Switch>
-        
-      </div>
-      
+            </Route>
+            <Route path='/watchlist' >
+              <Link to="/">Home</Link>
+              <h1>My Watch List</h1>
+              <WatchList watchList={this.state.watchList} addToWatchList={this.addToWatchList} />
+            </Route>
+            <Route>
+              <h1>Error! 404 - Not Found</h1>
+            </Route>
+          </Switch>
+
+        </div>
+
       </BrowserRouter>
     );
   }
