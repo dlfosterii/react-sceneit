@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import MovieCard from './MovieCard';
-import Col from 'react-bootstrap/Col'
 import './MovieList.css'
 
 
-export default class MovieList extends Component {
+export default class WatchList extends Component {
     render() {
         return (
             <div className="movie-list">
-                {this.props.movies && this.props.movies.map((movie) => {
+                {this.props.watchList.map((movie) => {
                     return <MovieCard key={movie.id} movie={movie} addToWatchList={this.props.addToWatchList}/>
                 })}
             </div>

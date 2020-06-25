@@ -1,0 +1,5 @@
+.movie-list {
+    width: 100vw;
+    display: flex;
+    flex-flow: row wrap;
+}
